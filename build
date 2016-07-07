@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# We can't hot-load the extension, so no point in using a file
+# watcher here. Just rebuild.
+
+APP=${APP:-mioappmfabckgimggmdglcdcaalcodfe}
+PUBLIC_PATH="chrome-extension://${APP}/"
+
+SCRIPT_SRC="dcc-portal/dcc-portal-ui/target/app/scripts/scripts.*.js"
+
+SRCS="
+dcc-portal/dcc-portal-ui/target/app/scripts/advanced/views/advanced.html
+dcc-portal/dcc-portal-ui/target/app/scripts/advanced/views/advanced.expression.html
+dcc-portal/dcc-portal-ui/app/addons/scripts/xena/js/*.ttf
+dcc-portal/dcc-portal-ui/app/addons/scripts/xena/js/*.woff
+dcc-portal/dcc-portal-ui/app/addons/scripts/xena/js/*.woff2
+dcc-portal/dcc-portal-ui/app/addons/scripts/xena/js/*.svg
+dcc-portal/dcc-portal-ui/app/addons/scripts/xena/js/*.eot
+control.js
+open.js
+icon-128.png
+icon-16.png
+icon-48.png
+manifest.json
+popup.html
+"
+#(cd dcc-portal/dcc-portal-ui; eval "$(rbenv init -)"; PUBLIC_PATH="${PUBLIC_PATH}" grunt build)
+(cd dcc-portal/dcc-portal-ui; eval "$(rbenv init -)"; grunt build)
+
+#cp dcc-portal/dcc-portal-ui/target/app/scripts/scripts.*.js target/scripts.js
+#cp dcc-portal/dcc-portal-ui/target/app/scripts/advanced/views/advanced.html target
+#cp dcc-portal/dcc-portal-ui/target/app/scripts/advanced/views/advanced.expression.html target
+#cp dcc-portal/dcc-portal-ui/app/addons/scripts/xena/js/* target
+
+rm -f target/*
+cp ${SCRIPT_SRC} target/scripts.js
+for file in ${SRCS}; do
+	cp ${file} target;
+done
+
+zip -r chrom-extension.zip target
