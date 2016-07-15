@@ -24,13 +24,7 @@ icon-48.png
 manifest.json
 popup.html
 "
-#(cd dcc-portal/dcc-portal-ui; eval "$(rbenv init -)"; PUBLIC_PATH="${PUBLIC_PATH}" grunt build)
 (cd dcc-portal/dcc-portal-ui; eval "$(rbenv init -)"; grunt build)
-
-#cp dcc-portal/dcc-portal-ui/target/app/scripts/scripts.*.js target/scripts.js
-#cp dcc-portal/dcc-portal-ui/target/app/scripts/advanced/views/advanced.html target
-#cp dcc-portal/dcc-portal-ui/target/app/scripts/advanced/views/advanced.expression.html target
-#cp dcc-portal/dcc-portal-ui/app/addons/scripts/xena/js/* target
 
 rm -f target/*
 cp ${SCRIPT_SRC} target/scripts.js
