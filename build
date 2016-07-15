@@ -26,6 +26,7 @@ popup.html
 "
 (cd dcc-portal/dcc-portal-ui; eval "$(rbenv init -)"; grunt build)
 
+mkdir -p target
 rm -f target/*
 cp ${SCRIPT_SRC} target/scripts.js
 for file in ${SRCS}; do
