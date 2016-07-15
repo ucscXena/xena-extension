@@ -1,0 +1,19 @@
+#!/bin/bash
+
+BUILDDIR=/tmp/xena-extension-build
+
+if [[ ${BUILDDIR} != /tmp/* ]]; then
+	echo "Invalid build directory" 2>&1
+	exit 1;
+fi
+
+rm -rf ${BUILDDIR}
+git clone --recursive https://github.com/ucscXena/xena-extension.git ${BUILDDIR}
+# XXX checkout correct version
+
+cd ${BUILDDIR}
+
+(cd dcc-portal/dcc-portal-ui &&
+  rbenv local 2.0.0-dev &&
+  npm install) && ./build
+
