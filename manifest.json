@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "UCSC Xena Chrome Extension",
   "description": "Extend dcc.icgc.org for visualization of expression, variant, and phenotype data",
-  "version": "1.0",
+  "version": "1.1",
   "background": {
 	"scripts": ["control.js"]
   },
